@@ -1,2 +1,9 @@
-# a70_overlay
-A70 Overlay for Treble Rom
+# Build?
+
+```bash
+# run
+cd build
+./build.sh
+```
+
+> You don't know how to do that? Then don't do it.
