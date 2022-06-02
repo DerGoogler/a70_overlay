@@ -1,3 +1,8 @@
+# Supported Spoofs
+
+- [x] Pixel 6 Pro
+- [x] Pixel 7 Pro (Initial / Leak)
+
 # Build?
 
 ```bash
