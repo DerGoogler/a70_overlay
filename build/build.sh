@@ -38,7 +38,7 @@ author=Der_Googler
 description=Fixed Overlay for Samsung Galaxy A70. Read DerGoogler/a70_overlay for all spoofs.
 EOF
     
-    getAPKs="$(ls ${OUTPUT_PATH}/module/product/overlay | sed 's/^/ui_print \"* Added /' | sed 's/$/\"/')"
+    getAPKs="$(ls ${OUTPUT_PATH}/module/system/product/overlay | sed 's/^/ui_print \"* Added /' | sed 's/$/\"/')"
     # customize.sh
 cat <<EOF >${OUTPUT_PATH}/module/customize.sh
 #!/system/bin/sh
@@ -90,10 +90,12 @@ EOF
         aapt package -f -F "${name}-unsigned.apk" -M "$path/AndroidManifest.xml" -S "$path/res" -I android.jar
         LD_LIBRARY_PATH=./signapk/ java -jar signapk/signapk.jar keys/platform.x509.pem keys/platform.pk8 "${name}-unsigned.apk" "${name}.apk"
         rm -f "${name}-unsigned.apk"
-        mv "${name}.apk" "${PWD}/module/product/overlay/"
+        mv "${name}.apk" "${PWD}/module/system/product/overlay/"
     done
     echo "Building Magisk module"
     # Make module.zip
     cd module
-    zip -r "../A70_Overlay_V${VERSION_NAME}(${VERSION_CODE}).zip" ./*
+    file="../A70_Overlay_V${VERSION_NAME}(${VERSION_CODE}).zip"
+    rm -f $file
+    zip -r $file ./*
 fi
