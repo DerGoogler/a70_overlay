@@ -1,7 +1,6 @@
 #!/bin/bash
 
 PWD="$(echo $(pwd))"
-
 DATE_WITH_TIME=`date "+%Y-%m-%d / %H:%M:%S"`
 
 function makeNormal() {
