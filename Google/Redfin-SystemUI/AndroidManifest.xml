@@ -1,15 +1,15 @@
 <!--
         Generated with generate.sh, made by Der_Googler <support@dergoogler.com>
-        Spoof for Google Raven. Build date 2022-06-04 / 17:46:55
+        Spoof for Google Redfin. Build date 2022-06-04 / 17:46:26
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="me.phh.treble.overlay.google.raven"
+        package="me.phh.treble.overlay.google.redfin.systemui"
         android:versionCode="1"
         android:versionName="1.0">
-        <overlay android:targetPackage="android"
+        <overlay android:targetPackage="com.android.systemui"
                 android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
-                android:requiredSystemPropertyValue="+*google/raven*"
+                android:requiredSystemPropertyValue="+*google/redfin*"
                 android:priority="185"
                 android:isStatic="true" />
 </manifest>

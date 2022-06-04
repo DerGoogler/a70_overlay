@@ -1,10 +1,10 @@
 # Generated with generate.sh, made by Der_Googler <support@dergoogler.com>
-# Spoof for Google Raven. Build date 2022-06-04 / 17:47:02
+# Spoof for Google Redfin. Build date 2022-06-04 / 17:46:33
 
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE_TAGS := optional
-LOCAL_PACKAGE_NAME := treble-overlay-google-raven-systemui
+LOCAL_PACKAGE_NAME := treble-overlay-google-redfin
 LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/overlay
 LOCAL_IS_RUNTIME_RESOURCE_OVERLAY := true
 LOCAL_PRIVATE_PLATFORM_APIS := true

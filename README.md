@@ -1,7 +1,8 @@
 # Supported Spoofs
 
-- [x] Pixel 6 Pro
-- [x] Pixel 7 Pro (Initial / Leak)
+- [x] Google Pixel 5 
+- [x] Google Pixel 6 Pro
+- [x] Google Pixel 7 Pro (Initial / Leak)
 
 # Build overlay
 
