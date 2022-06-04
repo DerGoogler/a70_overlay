@@ -19,7 +19,7 @@ bash generate.sh --systemui google raven
 ```bash
 # run
 cd build
-./build.sh
+./build.sh --versionName 17 --versionCode 170
 ```
 
 > You don't know how to do that? Then don't do it.
