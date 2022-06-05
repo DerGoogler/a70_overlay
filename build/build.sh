@@ -30,25 +30,15 @@ then
 else
     # module.prop
 cat <<EOF >${OUTPUT_PATH}/module/module.prop
+# Auto generated while building process, made by Der_Googler <support@dergoogler.com>
+# Build date ${DATE_WITH_TIME}
+
 id=samsung_a70_overlay
 name=Samsung Galaxy A70 Overlay
 version=V${VERSION_NAME}
 versionCode=${VERSION_CODE}
 author=Der_Googler
 description=Fixed Overlay for Samsung Galaxy A70. Read DerGoogler/a70_overlay for all spoofs.
-EOF
-    
-    getAPKs="$(ls ${OUTPUT_PATH}/module/system/product/overlay | sed 's/^/ui_print \"* Added /' | sed 's/$/\"/')"
-    # customize.sh
-cat <<EOF >${OUTPUT_PATH}/module/customize.sh
-#!/system/bin/sh
-
-ui_print "* Samsung A70 Overlay V$VERSION_NAME ($VERSION_CODE)"
-ui_print "* Last build date: ${DATE_WITH_TIME}"
-ui_print "* Module dynamically created on DerGoogler/a70_overlay"
-ui_print "* ═══════════════════════════════════════"
-${getAPKs}
-ui_print "* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 EOF
     
     script_dir="$(dirname "$(readlink -f -- "$0")")"
@@ -98,4 +88,20 @@ EOF
     file="../A70_Overlay_V${VERSION_NAME}(${VERSION_CODE}).zip"
     rm -f $file
     zip -r $file ./*
+    
+    getAPKs="$(ls ${OUTPUT_PATH}/module/system/product/overlay | sed 's/^/ui_print \"* Added /' | sed 's/$/\"/')"
+    # customize.sh
+cat <<EOF >${OUTPUT_PATH}/module/customize.sh
+#!/system/bin/sh
+
+# Auto generated while building process, made by Der_Googler <support@dergoogler.com>
+# Build date ${DATE_WITH_TIME}
+
+ui_print "* Samsung A70 Overlay V$VERSION_NAME ($VERSION_CODE)"
+ui_print "* Last build date: ${DATE_WITH_TIME}"
+ui_print "* Module dynamically created on DerGoogler/a70_overlay"
+ui_print "* ═══════════════════════════════════════"
+${getAPKs}
+ui_print "* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+EOF
 fi

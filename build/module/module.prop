@@ -1,6 +1,9 @@
+# Auto generated while building process, made by Der_Googler <support@dergoogler.com>
+# Build date 2022-06-05 / 18:20:52
+
 id=samsung_a70_overlay
 name=Samsung Galaxy A70 Overlay
-version=V17
-versionCode=170
+version=V18
+versionCode=180
 author=Der_Googler
 description=Fixed Overlay for Samsung Galaxy A70. Read DerGoogler/a70_overlay for all spoofs.
