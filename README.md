@@ -1,8 +1,16 @@
 # Supported Spoofs
 
-- [x] Google Pixel 5 
+- [x] Google Pixel 3a XL
+- [x] Google Pixel 4a
+- [x] Google Pixel 4 XL
+- [x] Google Pixel 5
+- [x] Google Pixel 6a (Leak)
 - [x] Google Pixel 6 Pro
-- [x] Google Pixel 7 Pro (Initial / Leak)
+- [x] Google Pixel 7 Pro (Leak)
+
+---
+
+- [x] Samsung Galaxy A70
 
 # Build overlay
 
