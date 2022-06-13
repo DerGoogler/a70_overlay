@@ -1,5 +1,5 @@
 # Generated with generate.sh, made by Der_Googler <support@dergoogler.com>
-# Spoof for Google Redfin. Build date 2022-06-04 / 17:46:33
+# Spoof for Google Redfin. Build date 2022-06-13 / 15:17:37
 
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
