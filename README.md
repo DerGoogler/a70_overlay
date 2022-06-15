@@ -27,7 +27,9 @@ make overlays
 ```bash
 # run
 cd build
-./build.sh --versionName 17 --versionCode 170
+bash build.sh --versionName 17 --versionCode 170
+# or
+bash build.sh -n 17 -c 170
 ```
 
 > You don't know how to do that? Then don't do it.

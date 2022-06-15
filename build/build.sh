@@ -24,6 +24,17 @@ do
     shift
 done
 
+while getopts :n:c: OPTION; do
+    case $OPTION in
+        n)
+            VERSION_NAME="$OPTARG"
+        ;;
+        c)
+            VERSION_CODE="$OPTARG"
+        ;;
+    esac
+done
+
 if [ -z "$VERSION_NAME" ] && [ -z "$VERSION_CODE" ]
 then
     echo "Please give an version name and code (--versionName 15 --versionCode 150)"
