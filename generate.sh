@@ -91,16 +91,11 @@ include \$(BUILD_PACKAGE)
 EOF
 }
 
-while [ "${1:-}" != "" ];
-do
-    case "$1" in
-        "--systemui")
-            makeSystemUI $2 $3
-        ;;
-        "--normal")
-            makeNormal $2 $3
-        ;;
-    esac
-    shift
-done
+if [ -z "$1" ] && [ -z "$2" ]
+then
+    echo "Please give an manufactor and device name!"
+    exit 1
+fi
 
+makeSystemUI $1 $2
+makeNormal $1 $2

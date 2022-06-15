@@ -1,24 +1,11 @@
-NORMAL = ./generate.sh --normal
-SYSTEMUI = ./generate.sh --systemui
+BIN = ./generate.sh
 
-normal:
+overlays:
 	chmod +x ./generate.sh
-	${NORMAL} google raven
-	${NORMAL} google redfin
-	${NORMAL} google sunfish
-	${NORMAL} google coral
-	${NORMAL} google cheetah
-	${NORMAL} google bonito
-	${NORMAL} google bluejay
-
-systemui:
-	chmod +x ./generate.sh
-	${NORMAL} google raven
-	${NORMAL} google redfin
-	${NORMAL} google sunfish
-	${NORMAL} google coral
-	${NORMAL} google cheetah
-	${NORMAL} google bonito
-	${NORMAL} google bluejay
-
-overlays: normal systemui
+	${BIN} google raven
+	${BIN} google redfin
+	${BIN} google sunfish
+	${BIN} google coral
+	${BIN} google cheetah
+	${BIN} google bonito
+	${BIN} google bluejay
