@@ -15,11 +15,11 @@
 # Build overlay
 
 ```bash
-# Build normal overlay
-bash generate.sh --normal google raven
+# Build overlay
+bash generate.sh google raven
 
-# Build SystemUI overlay
-bash generate.sh --systemui google raven
+# Rebuild
+make overlays
 ```
 
 # Build?
