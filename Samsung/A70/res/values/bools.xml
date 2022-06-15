@@ -21,7 +21,21 @@
     <bool name="config_dozeAfterScreenOff">true</bool>
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">false</bool>
 
-    <!-- Tests -->
+    <!-- Screen and auto brightness -->
     <bool name="config_automatic_brightness_available">true</bool>
     <bool name="config_supportDoubleTapWake">true</bool>
+    <integer name="config_screenBrightnessDoze">17</integer>
+
+    <!-- All screen rotation -->
+    <bool name="config_allowAllRotations">false</bool>
+
+    <!-- Tryna to enable VoLTE, it'll not work bruh -->
+    <bool name="config_carrier_volte_available">true</bool>
+    <bool name="config_carrier_volte_tty_supported">true</bool>
+    <bool name="config_carrier_vt_available">true</bool>
+    <bool name="config_carrier_wfc_ims_available">true</bool>
+    
+    <!-- Enable AOD -->
+    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+    <bool name="config_dozeAlwaysOnEnabled">true</bool>
 </resources>
