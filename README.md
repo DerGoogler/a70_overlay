@@ -12,14 +12,15 @@
 
 - [x] Samsung Galaxy A70
 
+# Install
+
+You need [FoxMMM](https://github.com/Fox2Code/FoxMagiskModuleManager/releases)
+
 # Build overlay
 
 ```bash
 # Build overlay
 bash generate.sh google raven
-
-# Rebuild
-make overlays
 ```
 
 # Build?

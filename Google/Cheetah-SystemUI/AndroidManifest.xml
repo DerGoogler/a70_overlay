@@ -1,12 +1,12 @@
 <!--
         Generated with generate.sh, made by Der_Googler <support@dergoogler.com>
-        Spoof for Google Cheetah. Build date 2022-06-15 / 18:26:29
+        Spoof for Google Cheetah. Build date 2022-06-16 / 21:34:09
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="me.phh.treble.overlay.google.cheetah.systemui"
-        android:versionCode="1"
-        android:versionName="1.0">
+        android:versionCode="120"
+        android:versionName="V20">
         <overlay android:targetPackage="com.android.systemui"
                 android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
                 android:requiredSystemPropertyValue="+*google/cheetah*"

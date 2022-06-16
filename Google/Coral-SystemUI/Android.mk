@@ -1,5 +1,5 @@
 # Generated with generate.sh, made by Der_Googler <support@dergoogler.com>
-# Spoof for Google Coral. Build date 2022-06-15 / 18:26:29
+# Spoof for Google Coral. Build date 2022-06-16 / 21:34:09
 
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)

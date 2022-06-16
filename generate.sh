@@ -6,6 +6,8 @@ DATE_WITH_TIME=`date "+%Y-%m-%d / %H:%M:%S"`
 function makeNormal() {
     MANUFACTOR="$1"
     DEVICE="$2"
+    NAME="$3"
+    CODE="$4"
     
     # Uppercase the first letter
     U_MANUFACTOR="$(echo "$MANUFACTOR" | sed 's/.*/\u&/')"
@@ -23,8 +25,8 @@ function makeNormal() {
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="me.phh.treble.overlay.${MANUFACTOR}.${DEVICE}"
-        android:versionCode="1"
-        android:versionName="1.0">
+        android:versionCode="${CODE}"
+        android:versionName="V${NAME}">
         <overlay android:targetPackage="android"
                 android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
                 android:requiredSystemPropertyValue="+*${MANUFACTOR}/${DEVICE}*"
@@ -50,6 +52,8 @@ EOF
 function makeSystemUI() {
     MANUFACTOR="$1"
     DEVICE="$2"
+    NAME="$3"
+    CODE="$4"
     
     # Uppercase the first letter
     U_MANUFACTOR="$(echo "$MANUFACTOR" | sed 's/.*/\u&/')"
@@ -67,8 +71,8 @@ function makeSystemUI() {
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="me.phh.treble.overlay.${MANUFACTOR}.${DEVICE}.systemui"
-        android:versionCode="1"
-        android:versionName="1.0">
+        android:versionCode="${CODE}"
+        android:versionName="V${NAME}">
         <overlay android:targetPackage="com.android.systemui"
                 android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
                 android:requiredSystemPropertyValue="+*${MANUFACTOR}/${DEVICE}*"
@@ -97,5 +101,10 @@ then
     exit 1
 fi
 
-makeSystemUI $1 $2
-makeNormal $1 $2
+# $1 MANUFACTOR
+# $2 DECIVE
+# $3 VERSION_NAME
+# $4 VERSION_CODE
+
+makeSystemUI $1 $2 $3 $4
+makeNormal $1 $2 $3 $4
