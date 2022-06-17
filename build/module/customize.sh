@@ -1,14 +1,14 @@
 #!/system/bin/sh
 
 # Auto generated while building process, made by Der_Googler <support@dergoogler.com>
-# Build date 2022-06-16 / 21:34:08
+# Build date 2022-06-16 / 21:41:13
 
 # Clear terminal after 3 seconds
 sleep 3
 clear
 
 print "* Samsung A70 Overlay V20 (120)"
-print "* Last build date: 2022-06-16 / 21:34:08"
+print "* Last build date: 2022-06-16 / 21:41:13"
 print "* Module dynamically created on DerGoogler/a70_overlay"
 print "! Use only the green FOD color! Others do not work."
 print "- Set FOD color to green"
