@@ -1,118 +1,84 @@
 #!/sbin/sh
-
-#################
-# Initialization
-#################
-
-umask 022
-
-# echo before loading util_functions
-ui_print() { echo "$1"; }
-
-require_new_magisk() {
-    ui_print "*******************************"
-    ui_print " Please install Magisk v20.4+! "
-    ui_print "*******************************"
+#Dynamic Installer by BlassGO - Based on osm0sis work
+#SETUP
+ui_print() {
+  if ! $BOOTMODE; then
+     echo "ui_print $1
+       ui_print" >> $OUTFD
+  else 
+    echo "$1"
+  fi
+}
+get() {
+  unzip -o "$installzip" "META-INF/zbin/$1" -p > "$2/$1"
+  chmod +x "$2/$1" || echo "Cant set: $1"
+  if [ ! -e "$2/$1" ]; then ui_print "ERROR: Cant get $1" && exit 1; fi;
+}
+setup_bb() {
+   if [ -e "$bb" ]; then
+     if ! $bb --install -s "$l"; then
+        for i in $($bb --list); do
+          if ! ln -sf "$bb" "$l/$i" && ! $bb ln -sf "$bb" "$l/$i" && ! $bb ln -f "$bb" "$l/$i"; then
+            # create script wrapper if symlinking and hardlinking failed because of restrictive selinux policy
+            if ! echo "#!$bb" > "$l/$i" || ! chmod +x "$l/$i" ; then
+              ui_print "ERROR: Failed to setup busybox"
+              exit 1
+            fi
+          fi
+        done
+     fi
+   fi
+}
+setup() {
+  rm -rf "$l"
+  rm -rf "$TMP/zbin"
+  mkdir -p "$l"
+  mkdir -p "$TMP/zbin"
+  if [[ ! -d "$l" && ! -d "$TMP/zbin" ]]; then
+    ui_print "Cant startup"
     exit 1
+  fi
+  get busybox "$TMP"
+  get bash "$TMP"
+  get bin "$TMP"
+  get core "$TMP"
+  setup_bb
+  export PATH="$l:$PATH"
+  mv -f "$TMP/bin" "$TMP/bin.xz" >/dev/null 2>&1
+  xz -d "$TMP/bin.xz" >/dev/null 2>&1
+  if [ ! -e "$TMP/bin" ]; then ui_print "setup: Cant get bin" && exit 1; fi;
+  unzip -qo "$TMP/bin" -d "$TMP/zbin" 
+  find "$TMP/zbin" -type f -exec mv -f {} "$l" \;
+  find "$l" -type f -exec chmod 777 {} +;
+  PATH="$PATH:/system/bin" $bs "$TMP/core" "$@"
 }
-
-#########################
-# Fox Library V1 Script
-#########################
-
-if [ -n "$MMM_EXT_SUPPORT" ]; then
-    ui_print "#!useExt"
-    mmm_exec() {
-        ui_print "#!$@"
-    }
-    print() {
-        mmm_exec "addLine $@"
-    }
-    reprint() { mmm_exec "setLastLine $@"; }
-    clear() { mmm_exec "clearTerminal"; }
+setenforce 0
+ps | grep zygote | grep -v grep >/dev/null && export BOOTMODE=true || export BOOTMODE=false
+$BOOTMODE || ps -A  | grep zygote | grep -v grep >/dev/null && export BOOTMODE=true
+if ! $BOOTMODE; then 
+   #Global vars
+   export TMP="/tmp"
+   export OUTFD="/proc/self/fd/$2"
+   export installzip="$3"
+   export addons="$TMP/addons"
+   export l="$TMP/ugu"
+   bb="$TMP/busybox"
+   bs="$TMP/bash"
+   setup
 else
-    mmm_exec() { true; }
-    print() {
-        ui_print "$@"
-    }
-    reprint() { true; }
-    clear() { true; }
+   umask 022
+   # Global vars
+   export TMP=/dev/tmp
+   export OUTFD="$2"
+   export ZIPFILE="$3"
+   export installzip="$3"
+   export DNM=META-INF/com/google/android/magisk
+   export TMPDIR=/dev/tmp
+   export PERSISTDIR=/sbin/.magisk/mirror/persist
+   export addons="$TMP/addons"
+   export l="$TMP/ugu"
+   bb="$TMP/busybox"
+   bs="$TMP/bash"
+   setup
 fi
-showLoading() { mmm_exec "showLoading $@"; }
-hideLoading() { mmm_exec "hideLoading"; }
-setLoading() { mmm_exec "setLoading $@"; }
-
-fox_copy_function() {
-    local ORIG_FUNC=
-    local NEWNAME_FUNC="$2${ORIG_FUNC#$1}"
-    eval "$NEWNAME_FUNC"
-}
-
-fox_copy_function abort ui_abort
-
-fox_disable_ansi() {
-    fox_copy_function ui_abort abort
-    mmm_exec("disableAnsi")
-    ESC=""
-    RED=""
-    ORANGE=""
-    YELLOW=""
-    GREEN=""
-    CYAN=""
-    BLUE=""
-    PURPLE=""
-    RESET=""
-}
-
-if [ "$ANSI_SUPPORT" == "true" ]; then
-    ESC=""
-    RED="$ESC[91m"
-    ORANGE="$ESC[33m"
-    YELLOW="$ESC[93m"
-    GREEN="$ESC[92m"
-    CYAN="$ESC[96m"
-    BLUE="$ESC[94m"
-    PURPLE="$ESC[95m"
-    RESET="$ESC[0m"
-    abort() {
-        ui_abort "$RED$1$RESET"
-    }
-else
-    fox_disable_ansi()
-fi
-
-#########################
-# Der_Googler's util
-#########################
-
-chmodBin() {
-    chmod +x $MODPATH/system/bin/$@
-}
-
-systemWrite() {
-    if [ $1 = true ]; then
-        mount -o rw,remount /
-        print "System is now read/write"
-        elif [ $1 = false ]; then
-        mount -o ro,remount /
-        print "System is now read-only"
-    else
-        print "System not writeable"
-    fi
-}
-
-#########################
-# Load util_functions.sh
-#########################
-
-OUTFD=$2
-ZIPFILE=$3
-
-mount /data 2>/dev/null
-
-[ -f /data/adb/magisk/util_functions.sh ] || require_new_magisk
-. /data/adb/magisk/util_functions.sh
-[ $MAGISK_VER_CODE -lt 20400 ] && require_new_magisk
-
-install_module
-exit 0
+ 

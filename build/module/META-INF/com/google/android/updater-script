@@ -1,1 +1,22 @@
+# Okey this is the new updater-script 
+# U can use shell commands cuz this has direct connection to the binary 
+# Interpreted by BASH, not DASH, u can use arrays and other bash stuff ugu
+# Before: ui_print("  Hi! ");
+# Now:    ui_print " Hi! "
+#-----------Dynamic Installer Configs-----------#
+#The #MAGISK tag is required, dont remove it
 #MAGISK
+
+#To run all META-INF/addons/*.sh scripts
+setdefault run_addons on
+
+#APEX is a new Google partition but its mounting is slow
+#Activate this option only if you need it
+setdefault apex_mount off
+
+#If u want to support only some variants
+#replace "off" to the devices code names "a51 a51nsxx"
+setdefault devices "a70q"
+#-----------------------------------------------#
+#Your script starts here:
+

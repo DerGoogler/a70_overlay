@@ -51,7 +51,7 @@ fi
 make overlays name="${VERSION_NAME}" code="${VERSION_CODE}"
 
 # module.prop
-cat <<EOF >${OUTPUT_PATH}/module/module.prop
+cat <<EOF >${OUTPUT_PATH}/module/META-INF/com/google/android/magisk/module.prop
 # Auto generated while building process, made by Der_Googler <support@dergoogler.com>
 # Build date ${DATE_WITH_TIME}
 
@@ -107,32 +107,35 @@ echo "$makes" | while read -r f;do
     aapt package -f -F "${name}-unsigned.apk" -M "$path/AndroidManifest.xml" -S "$path/res" -I android.jar
     LD_LIBRARY_PATH=./signapk/ java -jar signapk/signapk.jar keys/platform.x509.pem keys/platform.pk8 "${name}-unsigned.apk" "${name}.apk"
     rm -f "${name}-unsigned.apk"
-    mv "${name}.apk" "${PWD}/module/system/product/overlay/"
+    APK_OUTPUT="${PWD}/module/overlays/"
+    [ ! -d "$APK_OUTPUT" ] && mkdir -p "$APK_OUTPUT"
+    mv "${name}.apk" "$APK_OUTPUT"
 done
 
 # customize.sh
-cat <<EOF >${OUTPUT_PATH}/module/customize.sh
-#!/system/bin/sh
-
+cat <<EOF >${OUTPUT_PATH}/module/META-INF/com/google/android/magisk/customize.sh
 # Auto generated while building process, made by Der_Googler <support@dergoogler.com>
 # Build date ${DATE_WITH_TIME}
 
-# Clear terminal after 3 seconds
-sleep 3
-clear
-
-print "* Samsung A70 Overlay V$VERSION_NAME ($VERSION_CODE)"
-print "* Last build date: ${DATE_WITH_TIME}"
-print "* Module dynamically created on DerGoogler/a70_overlay"
-print "! Use only the green FOD color! Others do not work."
-print "- Set FOD color to green"
-
+ui_print "-------------------------------------------------- "
+ui_print " A70 Overlays     |   Galaxy A70q                  "
+ui_print "-------------------------------------------------- "
+ui_print " by Der_Googler   |   Version: $VERSION_NAME ($VERSION_CODE)"
+ui_print "-------------------------------------------------- "
+ui_print " Last build date: ${DATE_WITH_TIME}                "
+ui_print "-------------------------------------------------- "
+ui_print " "
+ui_print "* Module dynamically created on DerGoogler/a70_overlay"
+ui_print "* Use only the green FOD color! Others do not work."
+ui_print "* Set FOD color to green"
 setprop persist.sys.phh.fod_color 00ff00
 
-print "* ═══════════════════════════════════════"
-$(ls ${OUTPUT_PATH}/module/system/product/overlay | sed 's/^/print \"* Added /' | sed 's/$/\"/')
-print "* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+ui_print "* ═══════════════════════════════════════"
+package_extract_dir overlays "\$MODPATH/system/product/overlay"
 
+$(ls ${OUTPUT_PATH}/module/overlays | sed 's/^/ui_print \"+ Added /' | sed 's/$/\"/')
+ui_print "* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+ui_print "- Done"
 EOF
 
 echo "Building Magisk module"

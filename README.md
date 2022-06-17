@@ -1,4 +1,8 @@
-# Supported Spoofs
+# A70 Overlay
+
+Magisk module uses Dynamic Installer and should only flashed in Magisk
+
+## Supported Spoofs
 
 - [x] Google Pixel 3a XL
 - [x] Google Pixel 4a
@@ -12,18 +16,14 @@
 
 - [x] Samsung Galaxy A70
 
-# Install
-
-You need [FoxMMM](https://github.com/Fox2Code/FoxMagiskModuleManager/releases)
-
-# Build overlay
+## Build overlay
 
 ```bash
 # Build overlay
 bash generate.sh google raven
 ```
 
-# Build?
+## Build?
 
 ```bash
 # run
