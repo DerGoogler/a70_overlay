@@ -1,10 +1,16 @@
+<!--
+        Generated with generate.sh, made by Der_Googler <support@dergoogler.com>
+        Spoof for Samsung A70. Build date 2022-06-17 / 20:04:43
+-->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="me.phh.treble.overlay.samsung.a70.systemui"
-        android:versionCode="1"
-        android:versionName="1.0">
+        android:versionCode="120"
+        android:versionName="V20">
         <overlay android:targetPackage="com.android.systemui"
+                android:targetName="OverlayableResources"
                 android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
                 android:requiredSystemPropertyValue="+*samsung/a70*"
-		android:priority="185"
-		android:isStatic="true" />
+                android:priority="185"
+                android:isStatic="true" />
 </manifest>

@@ -1,3 +1,6 @@
+# Generated with generate.sh, made by Der_Googler <support@dergoogler.com>
+# Spoof for Samsung A70. Build date 2022-06-17 / 20:04:43
+
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE_TAGS := optional

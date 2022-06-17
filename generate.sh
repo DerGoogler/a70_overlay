@@ -3,18 +3,22 @@
 PWD="$(echo $(pwd))"
 DATE_WITH_TIME=`date "+%Y-%m-%d / %H:%M:%S"`
 
+MANUFACTOR="$1"
+DEVICE="$2"
+NAME="$3"
+CODE="$4"
+
+# Uppercase the first letter
+U_MANUFACTOR="$(echo "$MANUFACTOR" | sed 's/.*/\u&/')"
+U_DEVICE="$(echo "$DEVICE" | sed 's/.*/\u&/')"
+
+
+
 function makeNormal() {
-    MANUFACTOR="$1"
-    DEVICE="$2"
-    NAME="$3"
-    CODE="$4"
+    local OVERLAY_PATH="${PWD}/Base/A70/."
+    local OUTPUT_PATH="${PWD}/${U_MANUFACTOR}/${U_DEVICE}/"
     
-    # Uppercase the first letter
-    U_MANUFACTOR="$(echo "$MANUFACTOR" | sed 's/.*/\u&/')"
-    U_DEVICE="$(echo "$DEVICE" | sed 's/.*/\u&/')"
-    
-    OVERLAY_PATH="${PWD}/Samsung/A70/."
-    OUTPUT_PATH="${PWD}/${U_MANUFACTOR}/${U_DEVICE}/"
+    [ ! -d "$OUTPUT_PATH" ] && mkdir -p "$OUTPUT_PATH"
     
     cp -R "${OVERLAY_PATH}" "${OUTPUT_PATH}"
     cat <<EOF >${OUTPUT_PATH}/AndroidManifest.xml
@@ -50,17 +54,10 @@ EOF
 }
 
 function makeSystemUI() {
-    MANUFACTOR="$1"
-    DEVICE="$2"
-    NAME="$3"
-    CODE="$4"
+    local OVERLAY_PATH="${PWD}/Base/A70-SystemUI/."
+    local OUTPUT_PATH="${PWD}/${U_MANUFACTOR}/${U_DEVICE}-SystemUI/"
     
-    # Uppercase the first letter
-    U_MANUFACTOR="$(echo "$MANUFACTOR" | sed 's/.*/\u&/')"
-    U_DEVICE="$(echo "$DEVICE" | sed 's/.*/\u&/')"
-    
-    OVERLAY_PATH="${PWD}/Samsung/A70-SystemUI/."
-    OUTPUT_PATH="${PWD}/${U_MANUFACTOR}/${U_DEVICE}-SystemUI/"
+    [ ! -d "$OUTPUT_PATH" ] && mkdir -p "$OUTPUT_PATH"
     
     cp -R "${OVERLAY_PATH}" "${OUTPUT_PATH}"
     cat <<EOF >${OUTPUT_PATH}/AndroidManifest.xml
@@ -74,6 +71,7 @@ function makeSystemUI() {
         android:versionCode="${CODE}"
         android:versionName="V${NAME}">
         <overlay android:targetPackage="com.android.systemui"
+                android:targetName="OverlayableResources"
                 android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
                 android:requiredSystemPropertyValue="+*${MANUFACTOR}/${DEVICE}*"
                 android:priority="185"
