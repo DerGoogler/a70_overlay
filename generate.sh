@@ -32,6 +32,7 @@ function makeNormal() {
         android:versionCode="${CODE}"
         android:versionName="V${NAME}">
         <overlay android:targetPackage="android"
+                android:targetName="OverlayableResources"
                 android:requiredSystemPropertyName="ro.vendor.build.fingerprint"
                 android:requiredSystemPropertyValue="+*${MANUFACTOR}/${DEVICE}*"
                 android:priority="185"

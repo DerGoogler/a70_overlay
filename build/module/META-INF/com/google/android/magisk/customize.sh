@@ -1,12 +1,12 @@
 # Auto generated while building process, made by Der_Googler <support@dergoogler.com>
-# Build date 2022-06-18 / 15:03:59
+# Build date 2022-06-18 / 19:55:32
 
 ui_print "-------------------------------------------------- "
 ui_print " A70 Overlays     |   Galaxy A70q                  "
 ui_print "-------------------------------------------------- "
 ui_print " by Der_Googler   |   Version: 20 (120)"
 ui_print "-------------------------------------------------- "
-ui_print " Last build date: 2022-06-18 / 15:03:59                "
+ui_print " Last build date: 2022-06-18 / 19:55:32                "
 ui_print "-------------------------------------------------- "
 ui_print " "
 ui_print "* Module dynamically created on DerGoogler/a70_overlay"
@@ -21,10 +21,10 @@ ui_print " "
 if $yes; then
    mode_used="With spoofs"
    package_extract_dir normal "$MODPATH/system/product/overlay"
+   package_extract_dir spoofs "$MODPATH/system/product/overlay"
 else
    mode_used="W/O spoofs"
    package_extract_dir normal "$MODPATH/system/product/overlay"
-   package_extract_dir spoofs "$MODPATH/system/product/overlay"
 fi
 
 # module.prop
