@@ -1,37 +1,44 @@
 # Auto generated while building process, made by Der_Googler <support@dergoogler.com>
-# Build date 2022-06-17 / 21:05:29
+# Build date 2022-06-18 / 15:03:59
 
 ui_print "-------------------------------------------------- "
 ui_print " A70 Overlays     |   Galaxy A70q                  "
 ui_print "-------------------------------------------------- "
 ui_print " by Der_Googler   |   Version: 20 (120)"
 ui_print "-------------------------------------------------- "
-ui_print " Last build date: 2022-06-17 / 21:05:29                "
+ui_print " Last build date: 2022-06-18 / 15:03:59                "
 ui_print "-------------------------------------------------- "
 ui_print " "
 ui_print "* Module dynamically created on DerGoogler/a70_overlay"
-ui_print "! Use only the green FOD color! Others do not work."
-ui_print "- Set FOD color to green"
+ui_print "* Use only the green FOD color! Others do not work."
+ui_print "* Set FOD color to green"
 setprop persist.sys.phh.fod_color 00ff00
 
-ui_print "* ═══════════════════════════════════════"
-package_extract_dir overlays "$MODPATH/system/product/overlay"
+ui_print "- Do you want to install spoofs?"
+ui_print "  Volume up = With Spoofs | Volume down = Without spoofs"
+ui_print " "
 
-ui_print "+ Added treble-overlay-google-bluejay.apk"
-ui_print "+ Added treble-overlay-google-bluejay-systemui.apk"
-ui_print "+ Added treble-overlay-google-bonito.apk"
-ui_print "+ Added treble-overlay-google-bonito-systemui.apk"
-ui_print "+ Added treble-overlay-google-cheetah.apk"
-ui_print "+ Added treble-overlay-google-cheetah-systemui.apk"
-ui_print "+ Added treble-overlay-google-coral.apk"
-ui_print "+ Added treble-overlay-google-coral-systemui.apk"
-ui_print "+ Added treble-overlay-google-raven.apk"
-ui_print "+ Added treble-overlay-google-raven-systemui.apk"
-ui_print "+ Added treble-overlay-google-redfin.apk"
-ui_print "+ Added treble-overlay-google-redfin-systemui.apk"
-ui_print "+ Added treble-overlay-google-sunfish.apk"
-ui_print "+ Added treble-overlay-google-sunfish-systemui.apk"
-ui_print "+ Added treble-overlay-samsung-a70.apk"
-ui_print "+ Added treble-overlay-samsung-a70-systemui.apk"
-ui_print "* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-ui_print "- Done"
+if $yes; then
+   mode_used="With spoofs"
+   package_extract_dir normal "$MODPATH/system/product/overlay"
+else
+   mode_used="W/O spoofs"
+   package_extract_dir normal "$MODPATH/system/product/overlay"
+   package_extract_dir spoofs "$MODPATH/system/product/overlay"
+fi
+
+# module.prop
+cat <<End-of-message >$MODPATH/module.prop
+id=samsung_a70_overlay
+name=Samsung Galaxy A70 Overlay ($mode_used)
+version=V20
+versionCode=120
+author=Der_Googler
+description=Fixed Overlay for Samsung Galaxy A70.
+support=https://github.com/DerGoogler/a70_overlay
+minApi=29
+needRamdisk=false
+changeBoot=false
+End-of-message
+
+ui_print "- Done, installed $mode_used"

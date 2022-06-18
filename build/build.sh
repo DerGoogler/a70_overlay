@@ -60,12 +60,6 @@ name=Samsung Galaxy A70 Overlay
 version=V${VERSION_NAME}
 versionCode=${VERSION_CODE}
 author=Der_Googler
-description=Fixed Overlay for Samsung Galaxy A70. Read DerGoogler/a70_overlay for all spoofs.
-support=https://github.com/DerGoogler/a70_overlay
-minApi=29
-needRamdisk=false
-changeBoot=false
-
 EOF
 
 script_dir="$(dirname "$(readlink -f -- "$0")")"
@@ -107,9 +101,15 @@ echo "$makes" | while read -r f;do
     aapt package -f -F "${name}-unsigned.apk" -M "$path/AndroidManifest.xml" -S "$path/res" -I android.jar
     LD_LIBRARY_PATH=./signapk/ java -jar signapk/signapk.jar keys/platform.x509.pem keys/platform.pk8 "${name}-unsigned.apk" "${name}.apk"
     rm -f "${name}-unsigned.apk"
-    APK_OUTPUT="${PWD}/module/overlays/"
-    [ ! -d "$APK_OUTPUT" ] && mkdir -p "$APK_OUTPUT"
-    mv "${name}.apk" "$APK_OUTPUT"
+    APK_OUTPUT_wo_spoof="${PWD}/module/normal/"
+    APK_OUTPUT_spoof="${PWD}/module/spoofs/"
+    [ ! -d "$APK_OUTPUT_wo_spoof" ] && mkdir -p "$APK_OUTPUT_wo_spoof"
+    [ ! -d "$APK_OUTPUT_spoof" ] && mkdir -p "$APK_OUTPUT_spoof"
+    if [ "${name}.apk" = "treble-overlay-samsung-a70-systemui.apk" ] || [ "${name}.apk" = "treble-overlay-samsung-a70.apk" ]; then
+        mv "${name}.apk" "$APK_OUTPUT_wo_spoof"
+    else
+        mv "${name}.apk" "$APK_OUTPUT_spoof"
+    fi
 done
 
 # customize.sh
@@ -130,12 +130,34 @@ ui_print "* Use only the green FOD color! Others do not work."
 ui_print "* Set FOD color to green"
 setprop persist.sys.phh.fod_color 00ff00
 
-ui_print "* ═══════════════════════════════════════"
-package_extract_dir overlays "\$MODPATH/system/product/overlay"
+ui_print "- Do you want to install spoofs?"
+ui_print "  Volume up = With Spoofs | Volume down = Without spoofs"
+ui_print " "
 
-$(ls ${OUTPUT_PATH}/module/overlays | sed 's/^/ui_print \"+ Added /' | sed 's/$/\"/')
-ui_print "* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-ui_print "- Done"
+if \$yes; then
+   mode_used="With spoofs"
+   package_extract_dir normal "\$MODPATH/system/product/overlay"
+   package_extract_dir spoofs "\$MODPATH/system/product/overlay"
+else
+   mode_used="W/O spoofs"
+   package_extract_dir normal "\$MODPATH/system/product/overlay"
+fi
+
+# module.prop
+cat <<End-of-message >\$MODPATH/module.prop
+id=samsung_a70_overlay
+name=Samsung Galaxy A70 Overlay (\$mode_used)
+version=V${VERSION_NAME}
+versionCode=${VERSION_CODE}
+author=Der_Googler
+description=Fixed Overlay for Samsung Galaxy A70.
+support=https://github.com/DerGoogler/a70_overlay
+minApi=29
+needRamdisk=false
+changeBoot=false
+End-of-message
+
+ui_print "- Done, installed \$mode_used"
 EOF
 
 echo "Building Magisk module"

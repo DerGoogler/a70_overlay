@@ -1,5 +1,5 @@
 # Generated with generate.sh, made by Der_Googler <support@dergoogler.com>
-# Spoof for Samsung A70. Build date 2022-06-17 / 21:05:29
+# Spoof for Samsung A70. Build date 2022-06-18 / 15:03:59
 
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
