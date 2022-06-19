@@ -48,7 +48,7 @@ then
 fi
 
 # Make overlays again
-make overlays name="${VERSION_NAME}" code="${VERSION_CODE}"
+bash $PWD/build/overlays.sh "" "" $VERSION_NAME $VERSION_CODE
 
 # module.prop
 cat <<EOF >${OUTPUT_PATH}/module/META-INF/com/google/android/magisk/module.prop
@@ -97,9 +97,7 @@ echo "$makes" | while read -r f;do
     name="$(sed -nE 's/LOCAL_PACKAGE_NAME.*:\=\s*(.*)/\1/p' "$f")"
     grep -q treble-overlay <<<"$name" || continue
     echo "Generating $name"
-    
     path="$(dirname "$f")"
-    echo $path
     aapt package -f -F "${name}-unsigned.apk" -M "$path/AndroidManifest.xml" -S "$path/res" -I android.jar
     LD_LIBRARY_PATH=./signapk/ java -jar signapk/signapk.jar keys/platform.x509.pem keys/platform.pk8 "${name}-unsigned.apk" "${name}.apk"
     rm -f "${name}-unsigned.apk"
@@ -168,5 +166,3 @@ cd module
 file="../A70_Overlay_V${VERSION_NAME}(${VERSION_CODE}).zip"
 rm -f $file
 zip -r $file ./*
-
-#ro.cherish.build_type
