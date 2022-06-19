@@ -1,0 +1,11 @@
+--- /home/jimmy/Documents/GitHub/a70_overlay/installer/a70_overlay/build/build.sh	2022-06-19 14:38:38.629071466 +0200
++++ /home/jimmy/Documents/GitHub/a70_overlay/installer/patches/build.sh	2022-06-19 15:30:22.815468354 +0200
+@@ -99,7 +99,7 @@
+     echo "Generating $name"
+     path="$(dirname "$f")"
+     aapt package -f -F "${name}-unsigned.apk" -M "$path/AndroidManifest.xml" -S "$path/res" -I android.jar
+-    LD_LIBRARY_PATH=./signapk/ java -jar signapk/signapk.jar keys/platform.x509.pem keys/platform.pk8 "${name}-unsigned.apk" "${name}.apk"
++    java -jar signapk/signapk.jar keys/platform.x509.pem keys/platform.pk8 "${name}-unsigned.apk" "${name}.apk"
+     rm -f "${name}-unsigned.apk"
+     APK_OUTPUT_wo_spoof="${PWD}/module/normal/"
+     APK_OUTPUT_spoof="${PWD}/module/spoofs/"
