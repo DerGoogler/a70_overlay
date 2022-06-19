@@ -2,5 +2,6 @@
 
 - Spoofs now universal
 - Minize size
-- Added some funny stuff
+- Added Settings overlay
+- Added WhatsApp overlay
 - 

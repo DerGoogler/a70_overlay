@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="unread_message_count">
+        <item quantity="other">%d Unread Gaysages</item>
+        <item quantity="one">%d Unread Gaysage</item>
+    </plurals>
+    <plurals name="group_announcement_info_second_subtitle">
+        <item quantity="other">%1d Eric Cartman\'s</item>
+        <item quantity="one">%1d Eric Cartman</item>
+    </plurals>
+    <plurals name="group_announcement_info_subtitle">
+        <item quantity="other">Announcements · %1d Eric Cartman\'s</item>
+        <item quantity="one">Announcements · %1d Eric Cartman</item>
+    </plurals>
+    <plurals name="group_info_subtitle">
+        <item quantity="other">Group · %1d Eric Cartman\'s</item>
+        <item quantity="one">Group · %1d Eric Cartman</item>
+    </plurals>
+</resources>

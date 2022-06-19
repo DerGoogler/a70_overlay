@@ -36,9 +36,12 @@ bash build.sh -n 17 -c 170
 
 I was bored, so I created some funny/cringe stuff
 
-Enable cringe settings:
-
+All changes needs reboot
 ```bash
-# Requires reboot
+# Cringe Settings
 su -c "setprop persist.overlay.dg.settigns.cringe true"
+
+# Cringe WhatsApp (I've warn you)
+
+su -c "setprop persist.overlay.dg.whatsapp.cringe true"
 ```
