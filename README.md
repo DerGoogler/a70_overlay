@@ -1,6 +1,6 @@
 # A70 Overlay
 
-Magisk module uses Dynamic Installer and should only flashed in Magisk
+Fixed Overlay for Samsung Galaxy A70
 
 ## Enable
 
