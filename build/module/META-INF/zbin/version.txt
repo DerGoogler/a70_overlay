@@ -1,3 +1,0 @@
-Project: Dynamic Installer
-Version: Stable - 2.7-b3-1
-Author:  BlassGO

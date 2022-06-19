@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="status_bar_icon_padding">0px</dimen>
-    <dimen name="status_bar_padding_start">77px</dimen>
-    <dimen name="status_bar_padding_end">77px</dimen>
-    <dimen name="status_bar_padding_top">0px</dimen>
- 
-    <dimen name="ongoing_appops_dot_min_padding">0px</dimen>
-</resources>

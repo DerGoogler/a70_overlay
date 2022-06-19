@@ -47,21 +47,6 @@ then
     exit 1
 fi
 
-# Make overlays again
-bash $PWD/build/overlays.sh "" "" $VERSION_NAME $VERSION_CODE
-
-# module.prop
-cat <<EOF >${OUTPUT_PATH}/module/META-INF/com/google/android/magisk/module.prop
-# Auto generated while building process, made by Der_Googler <support@dergoogler.com>
-# Build date ${DATE_WITH_TIME}
-
-id=samsung_a70_overlay
-name=Samsung Galaxy A70 Overlay
-version=V${VERSION_NAME}
-versionCode=${VERSION_CODE}
-author=Der_Googler
-EOF
-
 script_dir="$(dirname "$(readlink -f -- "$0")")"
 if [ "$#" -eq 1 ]; then
     if [ -d "$1" ];then
@@ -91,78 +76,65 @@ if ! command -v zip > /dev/null;then
 fi
 
 cd "$script_dir"
-echo $script_dir
 
 echo "$makes" | while read -r f;do
     name="$(sed -nE 's/LOCAL_PACKAGE_NAME.*:\=\s*(.*)/\1/p' "$f")"
     grep -q treble-overlay <<<"$name" || continue
     echo "Generating $name"
     path="$(dirname "$f")"
-    aapt package -f -F "${name}-unsigned.apk" -M "$path/AndroidManifest.xml" -S "$path/res" -I android.jar
+    aapt package -f -F "${name}-unsigned.apk" -M "$path/AndroidManifest.xml" -S "$path/res" -I android.jar --version-name $VERSION_NAME --version-code $VERSION_CODE
     LD_LIBRARY_PATH=./signapk/ java -jar signapk/signapk.jar keys/platform.x509.pem keys/platform.pk8 "${name}-unsigned.apk" "${name}.apk"
     rm -f "${name}-unsigned.apk"
-    APK_OUTPUT_wo_spoof="${PWD}/module/normal/"
-    APK_OUTPUT_spoof="${PWD}/module/spoofs/"
-    [ ! -d "$APK_OUTPUT_wo_spoof" ] && mkdir -p "$APK_OUTPUT_wo_spoof"
-    [ ! -d "$APK_OUTPUT_spoof" ] && mkdir -p "$APK_OUTPUT_spoof"
-    if [ "${name}.apk" = "treble-overlay-samsung-a70-systemui.apk" ] || [ "${name}.apk" = "treble-overlay-samsung-a70.apk" ]; then
-        mv "${name}.apk" "$APK_OUTPUT_wo_spoof"
-    else
-        mv "${name}.apk" "$APK_OUTPUT_spoof"
-    fi
+    APK_OUTPUT="$PWD/module/system/product/overlay"
+    [ ! -d "$APK_OUTPUT" ] && mkdir -p "$APK_OUTPUT"
+    mv "${name}.apk" "$APK_OUTPUT"
 done
 
 # customize.sh
-cat <<EOF >${OUTPUT_PATH}/module/META-INF/com/google/android/magisk/customize.sh
+cat <<EOF >${OUTPUT_PATH}/module/customize.sh
+#!/system/bin/sh
+
 # Auto generated while building process, made by Der_Googler <support@dergoogler.com>
-# Build date ${DATE_WITH_TIME}
+# Build date $DATE_WITH_TIME
 
 ui_print "-------------------------------------------------- "
 ui_print " A70 Overlays     |   Galaxy A70q                  "
 ui_print "-------------------------------------------------- "
-ui_print " by Der_Googler   |   Version: $VERSION_NAME ($VERSION_CODE)"
+ui_print " by Der_Googler   |   Version: $VERSION_NAME ($VERSION_CODE)            "
 ui_print "-------------------------------------------------- "
-ui_print " Last build date: ${DATE_WITH_TIME}                "
+ui_print " Last build date: $DATE_WITH_TIME            "
 ui_print "-------------------------------------------------- "
 ui_print " "
 ui_print "* Module dynamically created on DerGoogler/a70_overlay"
 ui_print "* Use only the green FOD color! Others do not work."
-ui_print "* Set FOD color to green"
+ui_print "- Set FOD color to green"
 setprop persist.sys.phh.fod_color 00ff00
 
-ui_print "- Do you want to install spoofs?"
-ui_print "  Volume up = With Spoofs | Volume down = Without spoofs"
-ui_print " "
+ui_print "- Enable overlays"
+setprop persist.overlay.dg.enable true
 
-if \$yes; then
-   mode_used="With spoofs"
-   package_extract_dir normal "\$MODPATH/system/product/overlay"
-   package_extract_dir spoofs "\$MODPATH/system/product/overlay"
-else
-   mode_used="W/O spoofs"
-   package_extract_dir normal "\$MODPATH/system/product/overlay"
-fi
+EOF
 
 # module.prop
-cat <<End-of-message >\$MODPATH/module.prop
+cat <<EOF >$OUTPUT_PATH/module/module.prop
 id=samsung_a70_overlay
-name=Samsung Galaxy A70 Overlay (\$mode_used)
-version=V${VERSION_NAME}
-versionCode=${VERSION_CODE}
+name=Samsung Galaxy A70 Overlay
+version=V$VERSION_NAME
+versionCode=$VERSION_CODE
 author=Der_Googler
 description=Fixed Overlay for Samsung Galaxy A70.
 support=https://github.com/DerGoogler/a70_overlay
 minApi=29
 needRamdisk=false
 changeBoot=false
-End-of-message
-
-ui_print "- Done, installed \$mode_used"
 EOF
 
 echo "Building Magisk module"
 # Make module.zip
 cd module
-file="../A70_Overlay_V${VERSION_NAME}(${VERSION_CODE}).zip"
-rm -f $file
-zip -r $file ./*
+file="A70_Overlay_VN$VERSION_NAME-VC$VERSION_CODE.zip"
+rm -f "../$file"
+zip -r "../$file" ./*
+cd ..
+
+bash $PWD/install.sh $file

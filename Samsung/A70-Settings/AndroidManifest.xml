@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="me.phh.treble.overlay.samsung.a70"
+        package="me.phh.treble.overlay.samsung.a70.settings"
         android:versionCode="120"
         android:versionName="V20">
-        <overlay android:targetPackage="android"
+        <overlay android:targetPackage="com.android.settings"
                 android:targetName="OverlayableResources"
-                android:requiredSystemPropertyName="persist.overlay.dg.enable"
+                android:requiredSystemPropertyName="persist.overlay.dg.settigns.cringe"
                 android:requiredSystemPropertyValue="+*true*"
                 android:priority="185"
                 android:isStatic="true" />

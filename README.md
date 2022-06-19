@@ -18,13 +18,7 @@ Magisk module uses Dynamic Installer and should only flashed in Magisk
 
 ## Generate overlay
 
-```bash
-# Generate overlay
-bash build/generate.sh google raven
-
-# Generate via device props
-bash build/generate.sh fingerprint
-```
+Removed. It's now universal
 
 ## Build?
 
@@ -37,3 +31,14 @@ bash build.sh -n 17 -c 170
 ```
 
 > You don't know how to do that? Then don't do it.
+
+## Others
+
+I was bored, so I created some funny/cringe stuff
+
+Enable cringe settings:
+
+```bash
+# Requires reboot
+su -c "setprop persist.overlay.dg.settigns.cringe true"
+```
