@@ -16,7 +16,7 @@ Magisk module uses Dynamic Installer and should only flashed in Magisk
 
 - [x] Samsung Galaxy A70
 
-## Build overlay
+## Generate overlay
 
 ```bash
 # Generate overlay
