@@ -19,8 +19,11 @@ Magisk module uses Dynamic Installer and should only flashed in Magisk
 ## Build overlay
 
 ```bash
-# Build overlay
-bash generate.sh google raven
+# Generate overlay
+bash build/generate.sh google raven
+
+# Generate via device props
+bash build/generate.sh fingerprint
 ```
 
 ## Build?

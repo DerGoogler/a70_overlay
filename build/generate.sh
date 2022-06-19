@@ -3,10 +3,21 @@
 PWD="$(echo $(pwd))"
 DATE_WITH_TIME=`date "+%Y-%m-%d / %H:%M:%S"`
 
-MANUFACTOR="$1"
-DEVICE="$2"
-NAME="$3"
-CODE="$4"
+function getprop() {
+    adb shell getprop $1
+}
+
+if [ "$1" = "fingerprint" ]; then
+    MANUFACTOR="$(getprop ro.product.product.brand)"
+    DEVICE="$(getprop ro.product.product.device)"
+    NAME="${NAME:=10}"
+    CODE="${CODE:=100}"
+else
+    MANUFACTOR="$1"
+    DEVICE="$2"
+    NAME="${NAME:=10}"
+    CODE="${CODE:=100}"
+fi
 
 # Uppercase the first letter
 U_MANUFACTOR="$(echo "$MANUFACTOR" | sed 's/.*/\u&/')"
@@ -94,16 +105,10 @@ include \$(BUILD_PACKAGE)
 EOF
 }
 
-if [ -z "$1" ] && [ -z "$2" ]
+if [ -z "$MANUFACTOR" ] && [ -z "$DEVICE" ]
 then
     echo "Please give an manufactor and device name!"
     exit 1
 fi
 
-# $1 MANUFACTOR
-# $2 DECIVE
-# $3 VERSION_NAME
-# $4 VERSION_CODE
-
-makeSystemUI $1 $2 $3 $4
-makeNormal $1 $2 $3 $4
+makeSystemUI && makeNormal
