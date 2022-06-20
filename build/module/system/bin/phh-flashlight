@@ -1,0 +1,28 @@
+#!/system/bin/sh
+
+if ! command -v am > /dev/null;then
+    echo "am binary not found, exit."
+    exit 1
+fi
+
+broadcast() {
+    am broadcast $@
+}
+
+if [ -z "$1" ]; then
+    echo "Missing args, exit."
+    exit 1
+fi
+
+while [ "${1:-}" != "" ];
+do
+    case "$1" in
+        "--enable")
+            broadcast  -n "com.dergoogler.phh.flashlight/com.dergoogler.phh.flashlight.Receivers.FlashlightReceiver" --ez enable $2
+        ;;
+        "--version")
+            echo "V20 (120)"
+        ;;
+    esac
+    shift
+done

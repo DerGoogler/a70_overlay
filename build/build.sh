@@ -113,6 +113,40 @@ setprop persist.sys.phh.fod_color 00ff00
 ui_print "- Enable overlays"
 setprop persist.overlay.dg.enable true
 
+ui_print "- Adding phh-flashlight bin"
+chmod +x $MODPATH/system/bin/phh-flashlight
+EOF
+
+# customize.sh
+cat <<EOF >${OUTPUT_PATH}/module/system/bin/phh-flashlight
+#!/system/bin/sh
+
+if ! command -v am > /dev/null;then
+    echo "am binary not found, exit."
+    exit 1
+fi
+
+broadcast() {
+    am broadcast \$@
+}
+
+if [ -z "\$1" ]; then
+    echo "Missing args, exit."
+    exit 1
+fi
+
+while [ "\${1:-}" != "" ];
+do
+    case "\$1" in
+        "--enable")
+            broadcast  -n "com.dergoogler.phh.flashlight/com.dergoogler.phh.flashlight.Receivers.FlashlightReceiver" --ez enable \$2
+        ;;
+        "--version")
+            echo "V$VERSION_NAME ($VERSION_CODE)"
+        ;;
+    esac
+    shift
+done
 EOF
 
 # module.prop

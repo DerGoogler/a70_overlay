@@ -1,2 +1,3 @@
 *.apk
 *.zip
+!/module/system/priv-app/Phh-Flashlight/app-release.apk
