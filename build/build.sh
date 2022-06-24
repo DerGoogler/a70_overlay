@@ -183,6 +183,8 @@ cp -af /data/adb/magisk/util_functions.sh "\\\$POSTFSDIR/magisk/util_functions.s
 mkdir -p "\\\$MAGISKTMP/.magisk/\${MODPATH##*/}"
 # do not disable overlay
 rm -rf "/data/adb/modules/\${MODPATH##*/}/disable"
+setprop persist.sys.overlay.dg.basic true
+setprop persist.sys.overlay.dg.systemui true
 # always sync module
 if [ -e "\\\$POSTFSDIR/\${MODPATH##*/}/remove" ]; then
     touch "/data/adb/modules/\${MODPATH##*/}/remove"
