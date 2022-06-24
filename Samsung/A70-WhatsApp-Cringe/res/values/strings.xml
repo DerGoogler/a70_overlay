@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ShitApp</string>
+    <string name="my_status">My status make you horny</string>
+    <string name="contact_qr_prompt">Your QR code is private. If you share it with someone, they can scan it with their WhatsApp camera to add you as a contact and getting horny of you (girls only!)</string>
+    <string name="message">Imagine your sis is ur bf</string>
+
+    <!-- Archive -->
+    <string name="archived">Archived Por..</string>
+    <string name="archived_chats">Archived Por.. chats</string>
+
+
+    <!-- Group -->
+    <string name="make_contact_group_admin">Make hell lord</string>
+    <string name="select_group_admin_search_hint">Search hell lord…</string>
+    <string name="updating_group_admins">Updating hell lords…</string>
+    <string name="cannot_view_invite_link">"You're no longer an hell lord. Can't view invite link."</string>
+    <string name="edit_group_admins">Edit hell lords</string>
+    <string name="ephemeral_setting_description_control_disclaimer_group">Hell lords control who can change this setting.</string>
+    <string name="ephemeral_setting_description_multiple_durations_groups">For more privacy and storage, all new messages will disappear from this chat for everyone after the selected duration. Hell lords control who can change this setting. &lt;a href=\"learn-more\">Learn more&lt;/a></string>
+    <string name="group_admin">Hell Lord</string>
+    <string name="group_participant_promoted_you">"You're now an hell lord"</string>
+    <string name="group_participant_demoted_you">"You're no longer an hell lord"</string>
+
+    <string name="group_participant_joined_by_link_names">"%s joined using this group's invite link and will get fucked up by the police"</string>
+    <string name="group_participant_joined_by_link_you">"You joined using this group's invite link, and getting now an gf"</string>
+    <string name="estimated_time_to_complete_file_transfer_hours_minutes_message">%1$s (%2$sh %3$sm left his girlfriend)</string>
+    <string name="estimated_time_to_complete_file_transfer_minutes_message">%1$s (%2$sm left his girlfriend)</string>
+    <string name="estimated_time_to_complete_file_transfer_seconds_message">%1$s (%2$ss left his girlfriend)</string>
+
+    <string name="group_participant_left_name">%s left his girlfriend</string>
+    <string name="group_participant_left_you">You left ur girlfriend</string>
+    <string name="group_participant_removed_you">You were removed</string>
+    <string name="group_participants_name_added_names">%1$s added %2$s</string>
+    <string name="group_participants_name_added_you">%s added you</string>
+    <string name="group_participants_name_removed_names">%1$s removed \<\<\EOF\>%2$s\></string>
+    <string name="group_participants_name_removed_you">%s removed you</string>
+    <string name="group_participants_you_added_names">You added %s</string>
+    <string name="group_participants_you_removed_names">You removed %s (lol)</string>
+
+
+    <!-- Required for xml/preferences_account.xml  -->
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_security">Security</string>
+    <string name="settings_two_factor_auth">Two-step verification</string>
+    <string name="settings_change_number">Change number</string>
+    <string name="settings_gdpr_report">Request account info</string>
+    <string name="settings_delete_account">Delete my account</string>
+</resources>

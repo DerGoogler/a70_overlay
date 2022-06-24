@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="me.phh.treble.overlay.samsung.a70.whatsapp"
+        package="me.phh.treble.overlay.samsung.a70.whatsapp.cringe"
         android:versionCode="120"
         android:versionName="V20">
         <overlay android:targetPackage="com.whatsapp"
                 android:targetName="OverlayableResources"
-                android:requiredSystemPropertyName="persist.sys.overlay.dg.whatsapp"
+                android:requiredSystemPropertyName="persist.sys.overlay.dg.whatsapp.cringe"
                 android:requiredSystemPropertyValue="+*true*"
                 android:priority="185"
                 android:isStatic="true" />

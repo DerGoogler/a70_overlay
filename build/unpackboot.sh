@@ -15,10 +15,14 @@ function shell() {
 
 MAGISKBOOT="/data/adb/magisk/magiskboot"
 
+
+
 shell <<EOF
 echo "Go into boot dir"
 cd sdcard
 echo "Remove latest boot folder, and make new one"
+[ -d boot ] && rm -r "boot"
+[ ! -d boot ] && mkdir boot
 rm -r boot
 mkdir boot
 cd boot

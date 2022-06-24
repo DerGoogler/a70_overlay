@@ -16,4 +16,16 @@
         <item quantity="other">Group · %1d Eric Cartman\'s</item>
         <item quantity="one">Group · %1d Eric Cartman</item>
     </plurals>
+        <plurals name="group_participant_added_name">
+        <item quantity="other">%s were added</item>
+        <item quantity="one">%s was added</item>
+    </plurals>
+    <plurals name="group_participant_demoted_names">
+        <item quantity="other">%s are no longer hell lords</item>
+        <item quantity="one">%s is no longer an hell lord</item>
+    </plurals>
+    <plurals name="group_participant_promoted_names">
+        <item quantity="other">%s are now hell lords</item>
+        <item quantity="one">%s is now an hell lord</item>
+    </plurals>
 </resources>
