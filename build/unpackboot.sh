@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 function magisk() {
     adb shell su -c "magisk $@"
