@@ -1,10 +1,10 @@
 id=samsung_a70_overlay
 name=Samsung Galaxy A70 Overlay
-version=V20
-versionCode=120
+version=V21
+versionCode=121
 author=Der_Googler
 description=Fixed Overlay for Samsung Galaxy A70.
 support=https://github.com/DerGoogler/a70_overlay
 minApi=29
 needRamdisk=false
-changeBoot=false
+changeBoot=true

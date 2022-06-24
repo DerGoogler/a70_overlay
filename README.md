@@ -36,3 +36,7 @@ bash build.sh -n 17 -c 170
 ```
 
 > You don't know how to do that? Then don't do it.
+
+# Credits
+
+- [HuskyDG](https://github.com/HuskyDG) Inject into boot core
