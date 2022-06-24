@@ -1,7 +1,7 @@
 #!/system/bin/sh
 
 # Auto generated while building process, made by Der_Googler <support@dergoogler.com>
-# Build date 2022-06-24 / 16:36:03
+# Build date 2022-06-24 / 16:52:43
 
 MAGISKTMP=""
 get_flags
@@ -29,11 +29,11 @@ fi
 case $((STATUS & 3)) in
   0 )  # Stock boot
     ui_print "- Stock boot image detected"
-    
+
     ;;
   1 )  # Magisk patched
     ui_print "- Magisk patched boot image detected"
-    
+
     ;;
   2 )  # Unsupported
     ui_print "! Boot image patched by unsupported programs"
@@ -47,7 +47,7 @@ ui_print " A70 Overlays     |   Galaxy A70q                  "
 ui_print "-------------------------------------------------- "
 ui_print " by Der_Googler   |   Version: 21 (121)            "
 ui_print "-------------------------------------------------- "
-ui_print " Last build date: 2022-06-24 / 16:36:03            "
+ui_print " Last build date: 2022-06-24 / 16:52:43            "
 ui_print "-------------------------------------------------- "
 ui_print " "
 ui_print "* Module dynamically created on DerGoogler/a70_overlay"
@@ -71,7 +71,7 @@ setprop persist.sys.phh.fod_color 00ff00
         /data/adb/magisk/magiskboot unpack boot.img
         check_ramdisk
         ui_print "- Patching $BOOTIMAGE"
-        
+
 cat <<EUF >a70_overlay.rc
 on post-fs-data
     exec u:r:magisk:s0 root root -- /system/bin/sh \${MAGISKTMP}/a70_overlay_inject.sh
@@ -134,7 +134,7 @@ EUF
         ui_print "- Enable overlays"
         setprop persist.overlay.dg.enable true
         ui_print "- All done!"
-        
+
         ui_print "*****************************************"
         ui_print "  Remember to reinstall module"
         ui_print "      when you flash custom kernel/boot image"

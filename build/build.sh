@@ -75,6 +75,11 @@ if ! command -v zip > /dev/null;then
     exit 1
 fi
 
+if ! command -v adb > /dev/null;then
+    echo "Missing adb binary"
+    exit 1
+fi
+
 cd "$script_dir"
 
 echo "$makes" | while read -r f;do
@@ -123,11 +128,11 @@ fi
 case \$((STATUS & 3)) in
   0 )  # Stock boot
     ui_print "- Stock boot image detected"
-    
+
     ;;
   1 )  # Magisk patched
     ui_print "- Magisk patched boot image detected"
-    
+
     ;;
   2 )  # Unsupported
     ui_print "! Boot image patched by unsupported programs"
@@ -165,7 +170,7 @@ setprop persist.sys.phh.fod_color 00ff00
         /data/adb/magisk/magiskboot unpack boot.img
         check_ramdisk
         ui_print "- Patching \$BOOTIMAGE"
-        
+
 cat <<EUF >a70_overlay.rc
 on post-fs-data
     exec u:r:magisk:s0 root root -- /system/bin/sh \\\${MAGISKTMP}/a70_overlay_inject.sh
@@ -228,7 +233,7 @@ EUF
         ui_print "- Enable overlays"
         setprop persist.overlay.dg.enable true
         ui_print "- All done!"
-        
+
         ui_print "*****************************************"
         ui_print "  Remember to reinstall module"
         ui_print "      when you flash custom kernel/boot image"
@@ -281,4 +286,30 @@ rm -f "../$file"
 zip -r "../$file" ./*
 cd ..
 
-bash $PWD/install.sh $file
+
+ADB=`adb devices | awk 'NR>1 {print $1}'`
+if test -n "$ADB"
+then
+    ( # Isolate
+        function su() {
+            adb shell su -c "$@"
+        }
+        
+        function magisk() {
+            adb shell su -c "magisk $@"
+        }
+        
+        function push() {
+            adb push $@
+        }
+        
+        echo "Push $file to $ADB"
+        push "$PWD/$file" "sdcard/Download"
+        
+        echo "Installing $file module on $ADB"
+        magisk --install-module "/sdcard/Download/$file"
+    )
+else
+    echo "Can't install module via adb"
+    exit $?
+fi
