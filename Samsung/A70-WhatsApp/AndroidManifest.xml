@@ -4,7 +4,7 @@
         android:versionName="V20">
         <overlay android:targetPackage="com.whatsapp"
                 android:targetName="OverlayableResources"
-                android:requiredSystemPropertyName="persist.overlay.dg.whatsapp.cringe"
+                android:requiredSystemPropertyName="persist.sys.overlay.dg.whatsapp.cringe"
                 android:requiredSystemPropertyValue="+*true*"
                 android:priority="185"
                 android:isStatic="true" />

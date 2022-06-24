@@ -4,7 +4,7 @@
         android:versionName="V20">
         <overlay android:targetPackage="com.android.settings"
                 android:targetName="OverlayableResources"
-                android:requiredSystemPropertyName="persist.overlay.dg.settigns.cringe"
+                android:requiredSystemPropertyName="persist.sys.overlay.dg.settigns.cringe"
                 android:requiredSystemPropertyValue="+*true*"
                 android:priority="185"
                 android:isStatic="true" />

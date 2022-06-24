@@ -230,8 +230,12 @@ EUF
                 exit_ui_print "! Unable to flash boot image"
             ;;
         esac
-        ui_print "- Enable overlays"
-        setprop persist.overlay.dg.enable true
+        ui_print "- Enable Basic Overlay"
+        setprop persist.sys.overlay.dg.basic true
+
+        ui_print "- Enable SystemUI Sverlay"
+        setprop persist.sys.overlay.dg.systemui true
+        
         ui_print "- All done!"
 
         ui_print "*****************************************"
