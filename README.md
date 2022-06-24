@@ -1,6 +1,6 @@
 # A70 Overlay
 
-Fixed Overlay for Samsung Galaxy A70
+Fixed Overlay for Samsung Galaxy A70 with boot injection.
 
 ## Enable
 
@@ -10,20 +10,12 @@ All changes needs reboot
 
 ```bash
 # Cringe Settings
-su -c "setprop persist.overlay.dg.settigns.cringe true"
+su -c "setprop persist.sys.overlay.dg.settigns.cringe true"
 
 # Cringe WhatsApp (I've warn you)
 
-su -c "setprop persist.overlay.dg.whatsapp.cringe true"
+su -c "setprop persist.sys.overlay.dg.whatsapp.cringe true"
 ```
-
-## Supported Spoofs
-
-**REMOVED!** There is no more target brand/device. Read _Enable_ above
-
-## Generate overlay
-
-**REMOVED**
 
 ## Build?
 
