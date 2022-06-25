@@ -1,3 +1,9 @@
+# V22 (!22)
+
+- Default props ca't diabled from now on
+- Added boot up notification
+- 
+
 # V21 (121)
 
 ## Please make an boot.img backup of your device!

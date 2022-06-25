@@ -9,6 +9,9 @@ I was bored, so I created some funny/cringe stuff
 All changes needs reboot
 
 ```bash
+# Disable boot up notification
+su -c "setprop persist.sys.overlay.dg.disable.notification true"
+
 # Cringe Settings
 su -c "setprop persist.sys.overlay.dg.settigns.cringe true"
 

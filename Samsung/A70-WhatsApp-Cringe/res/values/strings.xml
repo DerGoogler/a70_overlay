@@ -33,7 +33,7 @@
     <string name="group_participant_removed_you">You were removed</string>
     <string name="group_participants_name_added_names">%1$s added %2$s</string>
     <string name="group_participants_name_added_you">%s added you</string>
-    <string name="group_participants_name_removed_names">%1$s removed \<\<\EOF\>%2$s\></string>
+    <string name="group_participants_name_removed_names">%1$s removed %2$s</string>
     <string name="group_participants_name_removed_you">%s removed you</string>
     <string name="group_participants_you_added_names">You added %s</string>
     <string name="group_participants_you_removed_names">You removed %s (lol)</string>

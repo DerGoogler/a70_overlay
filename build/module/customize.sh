@@ -1,7 +1,7 @@
 #!/system/bin/sh
 
 # Auto generated while building process, made by Der_Googler <support@dergoogler.com>
-# Build date 2022-06-24 / 16:52:43
+# Build date 2022-06-25 / 20:56:21
 
 MAGISKTMP=""
 get_flags
@@ -14,6 +14,10 @@ exit_ui_print() {
 
 if ! command -v /data/adb/magisk/magiskboot > /dev/null;then
     abort "- magiskboot binary not found, exit."
+fi
+
+if ! command -v getprop > /dev/null;then
+    abort "- getprop binary not found, exit."
 fi
 
 # HuskyDG bootloop protector
@@ -45,9 +49,9 @@ esac
 ui_print "-------------------------------------------------- "
 ui_print " A70 Overlays     |   Galaxy A70q                  "
 ui_print "-------------------------------------------------- "
-ui_print " by Der_Googler   |   Version: 21 (121)            "
+ui_print " by Der_Googler   |   Version: 22 (122)            "
 ui_print "-------------------------------------------------- "
-ui_print " Last build date: 2022-06-24 / 16:52:43            "
+ui_print " Last build date: 2022-06-25 / 20:56:21            "
 ui_print "-------------------------------------------------- "
 ui_print " "
 ui_print "* Module dynamically created on DerGoogler/a70_overlay"
@@ -76,21 +80,32 @@ cat <<EUF >a70_overlay.rc
 on post-fs-data
     exec u:r:magisk:s0 root root -- /system/bin/sh \${MAGISKTMP}/a70_overlay_inject.sh
 
+on property:sys.boot_completed=1
+    exec u:r:magisk:s0 root root -- /system/bin/sh \${MAGISKTMP}/a70_overlay_inject.sh --notification
+
 EUF
 
 cat <<EUF >a70_overlay_inject.sh
-cp -af /data/adb/magisk/magiskboot "\$POSTFSDIR/magisk/magiskboot"
-cp -af /data/adb/magisk/util_functions.sh "\$POSTFSDIR/magisk/util_functions.sh"
-mkdir -p "\$MAGISKTMP/.magisk/${MODPATH##*/}"
-# do not disable overlay
-rm -rf "/data/adb/modules/${MODPATH##*/}/disable"
-# always sync module
-if [ -e "\$POSTFSDIR/${MODPATH##*/}/remove" ]; then
-    touch "/data/adb/modules/${MODPATH##*/}/remove"
+if [ "$1" == "--notification" ]; then
+    if [ ! "$(getprop persist.sys.overlay.dg.disable.notification)" = "true" ]; then
+        su -lp 2000 -c "cmd notification post -S bigtext -t 'A70 Overlay Runtime' 'Tag' 'Overlay sucessfully injected!'"
+    fi
 else
-    mkdir -p "/data/adb/modules/${MODPATH##*/}"
-    cp -af "\$MAGISKTMP/samsung_a70_overlay/"* "/data/adb/modules/${MODPATH##*/}"
-    cp -af "\$MAGISKTMP/samsung_a70_overlay/"* "\$POSTFSDIR"
+    cp -af /data/adb/magisk/magiskboot "\$POSTFSDIR/magisk/magiskboot"
+    cp -af /data/adb/magisk/util_functions.sh "\$POSTFSDIR/magisk/util_functions.sh"
+    mkdir -p "\$MAGISKTMP/.magisk/${MODPATH##*/}"
+    # do not disable overlay
+    rm -rf "/data/adb/modules/${MODPATH##*/}/disable"
+    setprop persist.sys.overlay.dg.basic true
+    setprop persist.sys.overlay.dg.systemui true
+    # always sync module
+    if [ -e "\$POSTFSDIR/${MODPATH##*/}/remove" ]; then
+        touch "/data/adb/modules/${MODPATH##*/}/remove"
+    else
+        mkdir -p "/data/adb/modules/${MODPATH##*/}"
+        cp -af "\$MAGISKTMP/samsung_a70_overlay/"* "/data/adb/modules/${MODPATH##*/}"
+        cp -af "\$MAGISKTMP/samsung_a70_overlay/"* "\$POSTFSDIR"
+    fi
 fi
 EUF
 
@@ -131,9 +146,14 @@ EUF
                 exit_ui_print "! Unable to flash boot image"
             ;;
         esac
-        ui_print "- Enable overlays"
-        setprop persist.overlay.dg.enable true
+        ui_print "- Enable Basic Overlay"
+        setprop persist.sys.overlay.dg.basic true
+
+        ui_print "- Enable SystemUI Overlay"
+        setprop persist.sys.overlay.dg.systemui true
+
         ui_print "- All done!"
+        su -lp 2000 -c "cmd notification post -S bigtext -t 'A70 Overlay installed' 'Tag' 'Please reboot your device to take effect'"
 
         ui_print "*****************************************"
         ui_print "  Remember to reinstall module"
